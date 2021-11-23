@@ -15,7 +15,7 @@
             </v-list-item-content>
           </v-list-item>
 
-          <v-subheader v-if="!mini">CUSTOM</v-subheader>
+          <v-subheader v-if="drawer">CUSTOM</v-subheader>
           <v-divider v-else></v-divider>
 
           <v-list-item
@@ -31,7 +31,7 @@
             </v-list-item-content>
           </v-list-item>
 
-          <v-subheader v-if="!mini">FEATURES</v-subheader>
+          <v-subheader v-if="drawer">FEATURES</v-subheader>
           <v-divider v-else></v-divider>
 
           <v-list-item
@@ -73,6 +73,11 @@ export default {
       // dialog: false,
     };
   },
+  watch: {
+    drawer(newVal) {
+      console.log({ newVal });
+    },
+  },
 };
 </script>
 
@@ -95,6 +100,9 @@ export default {
   .v-subheader,
   span {
     color: $black-300;
+  }
+  .v-subheader {
+    margin-left: 8px;
   }
   .v-item--active {
     .v-icon {

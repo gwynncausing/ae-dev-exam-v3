@@ -1,7 +1,10 @@
 <template>
   <div id="header">
     <section class="upper-panel">
-      <v-btn @click="$emit('drawerClicked', true)" class="drawer">AE</v-btn>
+      <v-btn @click="$emit('drawerClicked', true)" class="drawer">
+        <v-icon>mdi-menu</v-icon>
+        AE
+      </v-btn>
       <Button color="white-100" class="blue-text">Pages</Button>
       <div>
         <v-icon>mdi-magnify</v-icon>
@@ -65,6 +68,11 @@ export default {
   justify-content: space-between;
   .drawer {
     display: none;
+    box-shadow: none;
+    background-color: #fff;
+    .v-icon {
+      padding-right: 4px;
+    }
   }
   div {
     display: flex;

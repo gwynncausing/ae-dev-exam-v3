@@ -1,10 +1,10 @@
 <template>
   <div id="home">
     <NavigationDialog
-      v-if="$vuetify.breakpoint.name === 's'"
+      v-if="$vuetify.breakpoint.name === 'xs'"
       :items1="items1"
       :items2="items2"
-      :drawer="!drawer"
+      :drawer="drawer"
       @drawerClicked="drawer = !drawer"
     />
     <NavigationDrawer
@@ -15,7 +15,7 @@
       @drawerClicked="drawer = !drawer"
     />
     <section :class="!drawer ? 'drawer-open' : ''">
-      <Header @drawerClicked="drawer = !drawer" />
+      <Header :drawer="drawer" @drawerClicked="drawer = !drawer" />
       <Content />
     </section>
   </div>
@@ -48,6 +48,12 @@ export default {
         { text: "Miscellaneous", icon: "mdi-account" },
       ],
     };
+  },
+
+  watch: {
+    drawer(newVal) {
+      // console.log({ newVal });
+    },
   },
 };
 </script>
