@@ -34,32 +34,19 @@
 </template>
 
 <script>
-import Button from "@/components/Button";
+import Button from "@/components/global/Button";
 export default {
   name: "Header",
   components: { Button },
-  data() {
-    return {
-      //
-    };
-  },
-
-  mounted() {
-    //
-  },
-
-  methods: {
-    //
-  },
 };
 </script>
 <style lang="scss" scoped>
-.blue-text {
-  color: $blue-100;
-}
 #header {
   width: 100%;
   background-color: #fff;
+  .blue-text {
+    color: $blue-100;
+  }
 }
 .upper-panel {
   padding: 10px 20px;

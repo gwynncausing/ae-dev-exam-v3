@@ -49,12 +49,6 @@ export default {
       ],
     };
   },
-
-  watch: {
-    drawer(newVal) {
-      // console.log({ newVal });
-    },
-  },
 };
 </script>
 

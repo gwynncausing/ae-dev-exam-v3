@@ -79,14 +79,6 @@ export default {
       mini: true,
     };
   },
-
-  mounted() {
-    //
-  },
-
-  methods: {
-    //
-  },
 };
 </script>
 

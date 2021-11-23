@@ -68,16 +68,6 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      // dialog: false,
-    };
-  },
-  watch: {
-    drawer(newVal) {
-      console.log({ newVal });
-    },
-  },
 };
 </script>
 
