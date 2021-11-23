@@ -1,7 +1,7 @@
 <template>
   <div id="home">
     <NavigationDialog
-      v-if="$vuetify.breakpoint.name === 'xs'"
+      v-if="$vuetify.breakpoint.name === 's'"
       :items1="items1"
       :items2="items2"
       :drawer="!drawer"
