@@ -1,16 +1,17 @@
 <template>
   <div id="header">
     <section class="upper-panel">
-      <v-btn @click="$emit('drawerClicked', true)" class="drawer">
-        <v-icon>mdi-menu</v-icon>
-        AE
-      </v-btn>
-      <Button color="white-100" class="blue-text">Pages</Button>
+      <div>
+        <v-btn @click="$emit('drawerClicked', true)" class="drawer" icon>
+          <v-icon>mdi-menu</v-icon>
+        </v-btn>
+        <Button color="white-100" class="blue-text">Pages</Button>
+      </div>
       <div>
         <v-icon>mdi-magnify</v-icon>
         <v-icon>mdi-message</v-icon>
         <span>flag</span>
-        <span>Hi, <strong>Admin</strong></span>
+        <span class="user-greeting">Hi, <strong>Admin</strong></span>
         <v-avatar>A</v-avatar>
       </div>
     </section>
@@ -130,6 +131,15 @@ export default {
     .upper-panel {
       .drawer {
         display: block;
+      }
+    }
+  }
+}
+@media screen and (max-width: 400px) {
+  #header {
+    .upper-panel {
+      .user-greeting {
+        display: none;
       }
     }
   }

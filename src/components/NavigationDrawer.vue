@@ -3,6 +3,11 @@
     :mini-variant.sync="localDrawer"
     permanent
     id="navigation-drawer"
+    :class="
+      $vuetify.breakpoint.name === 'xs' && localDrawer === true
+        ? 'hidden-dialog'
+        : ''
+    "
   >
     <v-list-item class="logo">
       <v-btn v-if="localDrawer" icon @click.stop="$emit('drawerClicked', true)">
@@ -148,7 +153,9 @@ export default {
 
 @media screen and (max-width: 500px) {
   #navigation-drawer {
-    display: none;
+    &.hidden-dialog {
+      transform: translateX(-100%) !important;
+    }
     .v-list-item {
       font-size: 18px;
     }

@@ -1,14 +1,6 @@
 <template>
-  <div id="home">
-    <NavigationDialog
-      v-if="$vuetify.breakpoint.name === 'xs'"
-      :items1="items1"
-      :items2="items2"
-      :drawer="drawer"
-      @drawerClicked="drawer = !drawer"
-    />
+  <div id="home" :class="!drawer ? 'navigation-open' : ''">
     <NavigationDrawer
-      v-else
       :items1="items1"
       :items2="items2"
       :drawer="drawer"
@@ -34,13 +26,12 @@
 import Content from "@/components/Content";
 import Header from "@/components/Header";
 import NavigationDrawer from "@/components/NavigationDrawer";
-import NavigationDialog from "@/components/NavigationDialog";
 export default {
   name: "Home",
-  components: { Content, Header, NavigationDrawer, NavigationDialog },
+  components: { Content, Header, NavigationDrawer },
   data() {
     return {
-      drawer: false,
+      drawer: true,
       items1: [
         { text: "Employee", icon: "mdi-clock" },
         { text: "Calendar", icon: "mdi-account" },
@@ -59,6 +50,23 @@ export default {
       search: "",
       addDialog: false,
     };
+  },
+
+  watch: {
+    drawer: {
+      handler(newValue) {
+        if (this.$vuetify.breakpoint.name !== "xs") return;
+
+        if (!newValue) {
+          document.body.style.overflow = "hidden";
+          document.body.parentNode.style.overflow = "hidden";
+          return;
+        }
+        document.body.style.overflow = "auto";
+        document.body.parentNode.style.overflow = "auto";
+      },
+      immediate: true,
+    },
   },
 };
 </script>
@@ -83,6 +91,17 @@ export default {
 
 @media screen and (max-width: 500px) {
   #home {
+    &.navigation-open {
+      &::after {
+        content: "";
+        position: absolute;
+        background-color: rgba($color: #000000, $alpha: 0.5);
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+    }
     section {
       margin-left: 0px;
     }
