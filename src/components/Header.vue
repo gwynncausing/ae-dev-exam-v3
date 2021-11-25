@@ -8,9 +8,13 @@
         <Button color="white-100" class="blue-text">Pages</Button>
       </div>
       <div>
-        <v-icon>mdi-magnify</v-icon>
-        <v-icon>mdi-message</v-icon>
-        <span>flag</span>
+        <v-icon color="blue">mdi-magnify</v-icon>
+        <v-icon color="blue">mdi-message</v-icon>
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/330/330442.png"
+          alt="Canadian Language"
+          height="24px"
+        />
         <span class="user-greeting">Hi, <strong>Admin</strong></span>
         <v-avatar>A</v-avatar>
       </div>

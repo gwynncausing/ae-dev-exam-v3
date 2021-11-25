@@ -5,6 +5,7 @@
         :headers="headers"
         :items="filteredContacts"
         sort-by="calories"
+        :items-per-page="5"
         class="elevation-1"
         :key="tableKey"
       >
