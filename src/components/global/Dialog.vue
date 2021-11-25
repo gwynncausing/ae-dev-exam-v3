@@ -9,7 +9,7 @@
         <slot name="body"></slot>
       </v-card-text>
 
-      <v-card-actions>
+      <v-card-actions class="d-flex">
         <slot name="actions"></slot>
       </v-card-actions>
     </v-card>

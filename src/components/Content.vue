@@ -63,11 +63,11 @@
           />
         </template>
         <template v-slot:actions>
-          <div class="d-flex">
+          <div class="ml-auto pa-2">
             <v-btn class="grey lighten-5" @click="editDialog = false">
               Cancel
             </v-btn>
-            <v-btn color="success" @click="updateCustomer">Update</v-btn>
+            <v-btn color="success ml-4" @click="updateCustomer">Update</v-btn>
           </div>
         </template>
       </Dialog>
