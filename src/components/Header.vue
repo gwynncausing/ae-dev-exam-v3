@@ -20,7 +20,12 @@
         <strong>Contacts</strong>
         |
         <div class="search-input">
-          <input class="search" type="text" placeholder="Search..." />
+          <input
+            class="search"
+            type="text"
+            placeholder="Search..."
+            @input="$emit('searchChanged', $event.target.value)"
+          />
           <v-icon class="search-icon">mdi-magnify</v-icon>
         </div>
       </div>

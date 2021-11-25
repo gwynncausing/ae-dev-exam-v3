@@ -15,8 +15,12 @@
       @drawerClicked="drawer = !drawer"
     />
     <section :class="!drawer ? 'drawer-open' : ''">
-      <Header :drawer="drawer" @drawerClicked="drawer = !drawer" />
-      <Content />
+      <Header
+        :drawer="drawer"
+        @drawerClicked="drawer = !drawer"
+        @searchChanged="search = $event"
+      />
+      <Content :search="search" />
     </section>
   </div>
 </template>
@@ -47,7 +51,14 @@ export default {
         { text: "Maps", icon: "mdi-account" },
         { text: "Miscellaneous", icon: "mdi-account" },
       ],
+      search: "",
     };
+  },
+
+  watch: {
+    search(newVal) {
+      console.log({ newVal });
+    },
   },
 };
 </script>

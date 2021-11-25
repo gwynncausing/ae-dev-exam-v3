@@ -5,7 +5,7 @@ no-unused-vars
     <div class="table">
       <v-data-table
         :headers="headers"
-        :items="desserts"
+        :items="filteredContacts"
         sort-by="calories"
         class="elevation-1"
       >
@@ -38,7 +38,6 @@ no-unused-vars
         <template v-slot:item.actions="{ item }">
           <span hidden>{{ item }}</span>
 
-          <v-icon small class="mr-2"> mdi-toggle-switch-off </v-icon>
           <v-icon small class="mr-2"> mdi-pencil </v-icon>
           <v-icon small> mdi-delete </v-icon>
         </template>
@@ -48,7 +47,16 @@ no-unused-vars
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
+
 export default {
+  name: "Content",
+  props: {
+    search: {
+      type: String,
+      default: "",
+    },
+  },
   data() {
     return {
       headers: [
@@ -60,49 +68,42 @@ export default {
         { text: "Status", value: "status" },
         { text: "Actions", value: "actions", sortable: false },
       ],
-      desserts: [
-        {
-          id: 1,
-          customer: "Test Test1",
-          phone: "123-123",
-          website: "test.com",
-          company: "Test Inc.",
-          status: "Info",
-        },
-        {
-          id: 2,
-          customer: "Test Test2",
-          phone: "123-123",
-          website: "test.com",
-          company: "Test Inc.",
-          status: "Pending",
-        },
-        {
-          id: 3,
-          customer: "Test Test3",
-          phone: "123-123",
-          website: "test.com",
-          company: "Test Inc.",
-          status: "Canceled",
-        },
-        {
-          id: 4,
-          customer: "Test Test4",
-          phone: "123-123",
-          website: "test.com",
-          company: "Test Inc.",
-          status: "Delivered",
-        },
-        {
-          id: 5,
-          customer: "Test Test5",
-          phone: "123-123",
-          website: "test.com",
-          company: "Test Inc.",
-          status: "Danger",
-        },
-      ],
     };
+  },
+
+  computed: {
+    ...mapGetters({
+      contacts: "getAllContacts",
+    }),
+    filteredContacts() {
+      const filteredContacts = [];
+      for (const user of this.contacts) {
+        filteredContacts.push({
+          id: user.id,
+          customer: user.name,
+          phone: user.phone,
+          website: user.website,
+          company: user.company.name,
+          status: this.getRandomStatus(),
+        });
+      }
+      return filteredContacts;
+    },
+  },
+
+  async mounted() {
+    await this.fetchUsers();
+  },
+
+  methods: {
+    ...mapActions({
+      fetchUsers: "fetchUsers",
+    }),
+    getRandomStatus() {
+      const status = ["Info", "Pending", "Canceled", "Delivered", "Danger"];
+      const random = Math.floor(Math.random() * status.length);
+      return status[random];
+    },
   },
 };
 </script>
