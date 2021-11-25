@@ -113,8 +113,9 @@
             <v-btn
               class="red darken-2 white--text ml-4"
               @click="removeCustomer"
+              :loading="removeCustomerLoading"
             >
-              Remove :loading="removeCustomerLoading"
+              Remove
             </v-btn>
           </div>
         </template>
