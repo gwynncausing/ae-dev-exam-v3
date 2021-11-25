@@ -33,21 +33,28 @@
           </span>
         </template>
         <template v-slot:item.actions="{ item }">
-          <span hidden>{{ item }}</span>
-
-          <v-icon small class="mr-2"> mdi-pencil </v-icon>
-          <v-icon small> mdi-delete </v-icon>
+          <v-btn icon>
+            <v-icon small title="Edit Customer" @click="openDialog({ item })">
+              mdi-pencil
+            </v-icon>
+          </v-btn>
+          <v-btn icon>
+            <v-icon small title="Delete Customer"> mdi-delete </v-icon>
+          </v-btn>
         </template>
       </v-data-table>
+      <Dialog :dialog="editDialog" @closeDialog="editDialog = false" />
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import Dialog from "@/components/global/Dialog";
 
 export default {
   name: "Content",
+  components: { Dialog },
   props: {
     search: {
       type: String,
@@ -65,6 +72,8 @@ export default {
         { text: "Status", value: "status" },
         { text: "Actions", value: "actions", sortable: false },
       ],
+      editDialog: false,
+      deleteDialog: false,
     };
   },
 
@@ -108,6 +117,10 @@ export default {
       const random = Math.floor(Math.random() * status.length);
       return status[random];
     },
+    openDialog(item) {
+      console.log(item);
+      this.editDialog = true;
+    },
   },
 };
 </script>
@@ -118,11 +131,13 @@ export default {
   .table {
     margin: 20px;
   }
-  .v-icon {
-    cursor: pointer;
+  .v-btn {
     background-color: #f1f5f8;
     padding: 4px;
     border-radius: 4px;
+    height: 30px;
+    width: 30px;
+    margin-right: 8px;
   }
   .status {
     &.status-info {
