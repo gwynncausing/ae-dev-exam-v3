@@ -10,17 +10,13 @@
     "
   >
     <v-list-item class="logo">
-      <v-btn v-if="localDrawer" icon @click.stop="$emit('drawerClicked', true)">
+      <v-btn v-if="localDrawer" icon @click.stop="localDrawer = !localDrawer">
         <v-icon>mdi-chevron-right</v-icon>
       </v-btn>
 
       <v-list-item-title><strong>Advance Exteriors</strong></v-list-item-title>
 
-      <v-btn
-        v-if="!localDrawer"
-        icon
-        @click.stop="$emit('drawerClicked', true)"
-      >
+      <v-btn v-if="!localDrawer" icon @click.stop="localDrawer = !localDrawer">
         <v-icon>mdi-chevron-left</v-icon>
       </v-btn>
     </v-list-item>
@@ -95,6 +91,9 @@ export default {
         this.localDrawer = newValue;
       },
       immediate: true,
+    },
+    localDrawer(newValue) {
+      this.$emit("drawerClicked", newValue);
     },
   },
 };

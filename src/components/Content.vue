@@ -168,7 +168,7 @@ export default {
       tableKey: 0,
       snackbar: false,
       snackbarText: "",
-      deleteCustomerLoading: false,
+      addCustomerLoading: false,
       updateCustomerLoading: false,
       removeCustomerLoading: false,
     };
