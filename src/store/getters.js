@@ -1,3 +1,3 @@
 export const getters = {
-  getAllContacts: (state) => state.contacts,
+  GET_ALL_CONTACTS: (state) => state.contacts,
 };

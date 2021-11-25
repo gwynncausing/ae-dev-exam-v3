@@ -6,6 +6,7 @@
         :items="filteredContacts"
         sort-by="calories"
         class="elevation-1"
+        :key="tableKey"
       >
         <template v-slot:item.status="{ item }">
           <span v-if="item.status.toLowerCase() === 'info'">
@@ -33,17 +34,43 @@
           </span>
         </template>
         <template v-slot:item.actions="{ item }">
-          <v-btn icon>
-            <v-icon small title="Edit Customer" @click="openDialog({ item })">
+          <v-btn icon class="success white--text">
+            <v-icon
+              small
+              title="Edit Customer"
+              @click="openEditDialog({ item })"
+            >
               mdi-pencil
             </v-icon>
           </v-btn>
-          <v-btn icon>
+          <v-btn
+            icon
+            @click="openDeleteDialog({ item })"
+            class="red darken-2 white--text"
+          >
             <v-icon small title="Delete Customer"> mdi-delete </v-icon>
           </v-btn>
         </template>
       </v-data-table>
-      <Dialog :dialog="editDialog" @closeDialog="editDialog = false" />
+      <Dialog :dialog="editDialog" @closeDialog="editDialog = false">
+        <template v-slot:title> Edit Customer </template>
+        <template v-slot:body>
+          <CustomerForm
+            :customer="customer"
+            :editUser="true"
+            :key="'customerFormKey' + customerFormKey"
+            @updated="customer = $event"
+          />
+        </template>
+        <template v-slot:actions>
+          <div class="d-flex">
+            <v-btn class="grey lighten-5" @click="editDialog = false">
+              Cancel
+            </v-btn>
+            <v-btn color="success" @click="updateCustomer">Update</v-btn>
+          </div>
+        </template>
+      </Dialog>
     </div>
   </div>
 </template>
@@ -51,10 +78,11 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import Dialog from "@/components/global/Dialog";
+import CustomerForm from "@/components/forms/CustomerForm";
 
 export default {
   name: "Content",
-  components: { Dialog },
+  components: { Dialog, CustomerForm },
   props: {
     search: {
       type: String,
@@ -74,25 +102,19 @@ export default {
       ],
       editDialog: false,
       deleteDialog: false,
+      customer: {},
+      contacts: [],
+      customerFormKey: 0,
+      tableKey: 0,
     };
   },
 
   computed: {
     ...mapGetters({
-      contacts: "getAllContacts",
+      getAllContacts: "GET_ALL_CONTACTS",
     }),
     filteredContacts() {
-      const filteredContacts = [];
-      for (const user of this.contacts) {
-        filteredContacts.push({
-          id: user.id,
-          customer: user.name,
-          phone: user.phone,
-          website: user.website,
-          company: user.company.name,
-          status: this.getRandomStatus(),
-        });
-      }
+      const filteredContacts = this.contacts;
       if (this.search) {
         return filteredContacts.filter((user) => {
           return user.customer
@@ -106,20 +128,30 @@ export default {
 
   async mounted() {
     await this.fetchUsers();
+    this.contacts = await this.getAllContacts;
   },
 
   methods: {
     ...mapActions({
-      fetchUsers: "fetchUsers",
+      fetchUsers: "FETCH_USERS",
+      updateUser: "UPDATE_USER",
     }),
-    getRandomStatus() {
-      const status = ["Info", "Pending", "Canceled", "Delivered", "Danger"];
-      const random = Math.floor(Math.random() * status.length);
-      return status[random];
-    },
-    openDialog(item) {
-      console.log(item);
+
+    openEditDialog(item) {
+      Object.assign(this.customer, item.item);
+      this.customerFormKey++;
       this.editDialog = true;
+    },
+    openDeleteDialog(item) {
+      this.deleteDialog = true;
+    },
+    async updateCustomer() {
+      await this.updateUser(this.customer);
+      // this.contacts = await this.getAllContacts;
+      this.editDialog = false;
+      this.tableKey++;
+      // console.log({ contacts: await this.getAllContacts });
+      console.log(this.$store);
     },
   },
 };
