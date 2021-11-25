@@ -1,5 +1,3 @@
-/* eslint-disable vue/no-unused-vars */ // eslint-disable-next-line
-no-unused-vars
 <template>
   <div id="content">
     <div class="table">
@@ -9,7 +7,6 @@ no-unused-vars
         sort-by="calories"
         class="elevation-1"
       >
-        // eslint-disable-next-line vue/no-unused-vars
         <template v-slot:item.status="{ item }">
           <span v-if="item.status.toLowerCase() === 'info'">
             <v-chip class="status status-info" label>{{ item.status }} </v-chip>
@@ -85,6 +82,13 @@ export default {
           website: user.website,
           company: user.company.name,
           status: this.getRandomStatus(),
+        });
+      }
+      if (this.search) {
+        return filteredContacts.filter((user) => {
+          return user.customer
+            .toLowerCase()
+            .includes(this.search.toLowerCase());
         });
       }
       return filteredContacts;

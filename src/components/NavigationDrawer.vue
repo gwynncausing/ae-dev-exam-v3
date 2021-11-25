@@ -1,17 +1,21 @@
 <template>
   <v-navigation-drawer
-    :mini-variant.sync="drawer"
+    :mini-variant.sync="localDrawer"
     permanent
     id="navigation-drawer"
   >
     <v-list-item class="logo">
-      <v-btn v-if="drawer" icon @click.stop="$emit('drawerClicked', true)">
+      <v-btn v-if="localDrawer" icon @click.stop="$emit('drawerClicked', true)">
         <v-icon>mdi-chevron-right</v-icon>
       </v-btn>
 
       <v-list-item-title><strong>Advance Exteriors</strong></v-list-item-title>
 
-      <v-btn v-if="!drawer" icon @click.stop="$emit('drawerClicked', true)">
+      <v-btn
+        v-if="!localDrawer"
+        icon
+        @click.stop="$emit('drawerClicked', true)"
+      >
         <v-icon>mdi-chevron-left</v-icon>
       </v-btn>
     </v-list-item>
@@ -28,7 +32,7 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-subheader v-if="!drawer">CUSTOM</v-subheader>
+        <v-subheader v-if="!localDrawer">CUSTOM</v-subheader>
         <!-- <v-divider v-else></v-divider> -->
 
         <v-list-item v-for="(item, index1) in items1" :key="item.text + index1">
@@ -40,7 +44,7 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-subheader v-if="!drawer">FEATURES</v-subheader>
+        <v-subheader v-if="!localDrawer">FEATURES</v-subheader>
         <!-- <v-divider v-else></v-divider> -->
 
         <v-list-item v-for="(item, index2) in items2" :key="item.text + index2">
@@ -75,9 +79,18 @@ export default {
   },
   data() {
     return {
-      selectedItem: 1,
-      mini: true,
+      selectedItem: 0,
+      localDrawer: false,
     };
+  },
+
+  watch: {
+    drawer: {
+      handler(newValue) {
+        this.localDrawer = newValue;
+      },
+      immediate: true,
+    },
   },
 };
 </script>
@@ -136,7 +149,6 @@ export default {
 @media screen and (max-width: 500px) {
   #navigation-drawer {
     display: none;
-    // transform: translateX(100%) !important;
     .v-list-item {
       font-size: 18px;
     }

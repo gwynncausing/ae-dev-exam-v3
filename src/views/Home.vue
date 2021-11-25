@@ -54,12 +54,6 @@ export default {
       search: "",
     };
   },
-
-  watch: {
-    search(newVal) {
-      console.log({ newVal });
-    },
-  },
 };
 </script>
 
