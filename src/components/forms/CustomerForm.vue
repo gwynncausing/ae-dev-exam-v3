@@ -1,11 +1,11 @@
 <template>
-  <v-form ref="form" v-model="valid" lazy-validation>
-    <v-text-field
+  <div>
+    <!-- <v-text-field
       v-show="editUser"
       v-model="localCustomer.id"
       label="Id"
       disabled
-    />
+    /> -->
     <v-text-field
       v-model="localCustomer.customer"
       :rules="nameRules"
@@ -44,7 +44,7 @@
       label="Status"
       @change="update"
     />
-  </v-form>
+  </div>
 </template>
 
 <script>
@@ -62,7 +62,6 @@ export default {
   },
   data() {
     return {
-      valid: true,
       nameRules: [(v) => !!v || "Name is required"],
       phoneRules: [(v) => !!v || "Phone is required"],
       websiteRules: [(v) => !!v || "Website is required"],

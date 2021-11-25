@@ -19,8 +19,13 @@
         :drawer="drawer"
         @drawerClicked="drawer = !drawer"
         @searchChanged="search = $event"
+        @addDialog="addDialog = !addDialog"
       />
-      <Content :search="search" />
+      <Content
+        :search="search"
+        :add-dialog="addDialog"
+        @addDialogClose="addDialog = false"
+      />
     </section>
   </div>
 </template>
@@ -52,6 +57,7 @@ export default {
         { text: "Miscellaneous", icon: "mdi-account" },
       ],
       search: "",
+      addDialog: false,
     };
   },
 };

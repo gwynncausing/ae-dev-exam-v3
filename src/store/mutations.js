@@ -20,4 +20,12 @@ export const mutations = {
     const index = state.contacts.findIndex((user) => user.id === customer.id);
     state.contacts[index] = customer;
   },
+  ADD_USER: (state, customer) => {
+    customer.id = state.contacts.length + 1;
+    state.contacts.push(customer);
+  },
+  REMOVE_USER: (state, id) => {
+    const index = state.contacts.findIndex((user) => user.id === id);
+    state.contacts.splice(index, 1);
+  },
 };

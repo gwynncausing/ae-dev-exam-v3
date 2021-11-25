@@ -30,7 +30,11 @@
         </div>
       </div>
       <div>
-        <Button color="white-100" class="blue-text add-contact">
+        <Button
+          color="white-100"
+          class="blue-text add-contact"
+          @click="$emit('addDialog', true)"
+        >
           Add Contact
         </Button>
       </div>

@@ -11,4 +11,14 @@ export const actions = {
     // passing the customer instead of response.data since the update above is faked
     commit("UPDATE_USER", customer);
   },
+  async ADD_USER({ commit }, customer) {
+    const response = await axios.post(`${BASE_URL}${USERS}`);
+    // passing the customer instead of response.data since the update above is faked
+    commit("ADD_USER", customer);
+  },
+  async REMOVE_USER({ commit }, id) {
+    const response = await axios.delete(`${BASE_URL}${USERS}${id}`);
+    // passing the id instead of response.data since the update above is faked
+    commit("REMOVE_USER", id);
+  },
 };
